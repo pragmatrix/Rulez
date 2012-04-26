@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Toolbox;
+using Rulez.Toolbox;
 
 namespace Rulez.Detail
 {
