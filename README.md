@@ -27,7 +27,7 @@ A `Rule` has a lifetime. When it is activated, it is automatically reevaluated a
 
 `Rule`s may change other `Fact`s.
 
-For example, the following code keeps the `result` variable below always at two times the `input`:
+For example, the following code keeps the `result` variable always at two times the `input` variable:
 
 	var input = Fact.of(0);
 	int output = 0;
