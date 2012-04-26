@@ -33,9 +33,9 @@ namespace Rulez
 			for (int i = 0; i != parameters.Length; ++i)
 				args[i] = resolver_(parameters[i].ParameterType);
 
+#if !COMPILEIT
 			addRule(() => method.Invoke(this, args));
-
-#if COMPILEIT
+#else
 			var parameterExpressions = args.Select(Expression.Constant);
 			var call = Expression.Call(Expression.Constant(this), method, parameterExpressions);
 			addRule(Expression.Lambda<Action>(call).Compile());
