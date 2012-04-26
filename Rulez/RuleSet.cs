@@ -8,7 +8,7 @@ namespace Rulez
 	{
 		readonly List<IDisposable> _rules = new List<IDisposable>();
 
-		public RuleSet()
+		public RuleSet(Func<Type, object> resolver_ = null)
 		{
 			var t = GetType();
 			var methods = t.GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
@@ -16,11 +16,22 @@ namespace Rulez
 			{
 				if (m.GetCustomAttributes(typeof (RuleAttribute), false).Length == 0)
 					continue;
-				if (m.GetParameters().Length != 0)
-					throw new Exception("Rules are now allowed to have parameters (yet).");
-				var mCopy = m;
-				addRule(() => mCopy.Invoke(this, null));
+				addMethod(resolver_, m);
 			}
+		}
+
+		void addMethod(Func<Type, object> resolver_, MethodInfo method)
+		{
+			// pre-resolve parameters.
+			var parameters = method.GetParameters();
+			if (resolver_ == null && parameters.Length != 0)
+				throw new Exception("RuleSet needs a resolver to set up rules with non-empty parameter lists");
+
+			var args = new object[parameters.Length];
+			for (int i = 0; i != parameters.Length; ++i)
+				args[i] = resolver_(parameters[i].ParameterType);
+
+			addRule(() => method.Invoke(this, args));
 		}
 
 		public void Dispose()
