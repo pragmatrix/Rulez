@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 
 namespace Rulez
@@ -32,6 +34,12 @@ namespace Rulez
 				args[i] = resolver_(parameters[i].ParameterType);
 
 			addRule(() => method.Invoke(this, args));
+
+#if COMPILEIT
+			var parameterExpressions = args.Select(Expression.Constant);
+			var call = Expression.Call(Expression.Constant(this), method, parameterExpressions);
+			addRule(Expression.Lambda<Action>(call).Compile());
+#endif
 		}
 
 		public void Dispose()
