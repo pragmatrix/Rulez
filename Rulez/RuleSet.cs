@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Rulez
 {
-	public sealed class RuleSet : IDisposable
+	public class RuleSet : IDisposable
 	{
 		readonly List<IDisposable> _rules = new List<IDisposable>();
 
