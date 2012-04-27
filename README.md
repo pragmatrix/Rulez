@@ -41,13 +41,13 @@ Note that the evaluation is deferred through the .NET `Dispatcher`. This means t
 
 ##RuleSets
 
-A *RuleSet* combines multiple *Rule*s together.
+A *RuleSet* combines multiple *Rules* together.
 
 To create a custom *RuleSet*, create a class that derives from *RuleSet*.
 
 To add a *Rule* to your *RuleSet*, create a method that contains the *Rule* logic and attribute it with `[Rule]`.
 
-Any method in a *RuleSet* derived class that is tagged with a *RuleAttribute*, is automatically activated when the *RuleSet* class is instantiated.
+Any `[Rule]` attributed method in a *RuleSet* derived class is automatically activated as a *Rule* when the *RuleSet* class is instantiated.
 
 To deactivate the *RuleSet* call its `Dispose()` method.
 
