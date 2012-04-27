@@ -23,7 +23,7 @@ A `Rule` is evaluated in the context of the current `Dispatcher`.
 
 While a `Rule` is evaluated, all `Fact`s that are accessed are tracked. 
 
-A `Rule` has a lifetime. When it is activated, it is automatically reevaluated as soon one of its referred `Fact`s change.
+A `Rule` has a lifetime. When it is active, it is automatically reevaluated as soon one of its referred `Fact`s change. To deactivate a `Rule` call `Dispose` on the return value of `Rule.activate()`.
 
 `Rule`s may change other `Fact`s.
 
