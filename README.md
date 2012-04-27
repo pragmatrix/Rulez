@@ -27,7 +27,7 @@ A *Rule* is evaluated in the context of the current `Dispatcher`.
 
 While a *Rule* is evaluated, all *Facts* that are accessed are tracked. 
 
-A *Rule* has a lifetime. When it is active, it is automatically reevaluated as soon one of its referred *Facts* change. To deactivate a *Rule* call `Dispose` on the return value of `Rule.activate()`.
+A *Rule* has a lifetime. When it is active, it is automatically reevaluated as soon one of its referred *Facts* change. To deactivate a *Rule* call `Dispose()` on the return value of `Rule.activate()`.
 
 *Rules* may change other *Facts*.
 
