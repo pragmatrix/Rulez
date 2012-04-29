@@ -34,16 +34,19 @@ namespace Rulez
 
 		void schedule()
 		{
-			// need to flush the facts here too. We don't want us to be scheduled a second time
-			// when another dependency is changed.
+			// no calls from different threads for now.
+			Debug.Assert(Dispatcher.CurrentDispatcher == _dispatcher);
 
+			// we want to flush tracked facts in advance so that multiple changes
+			// result into only one call to schedule()
+		
 			flushTrackedFacts();
 			_dispatcher.BeginInvoke((Action)evaluate, DispatcherPriority.Normal, null);
 		}
 
 		void evaluate()
 		{
-			// important: evaluate() is called from within the Dispatcher and this might be at times 
+			// important: evaluate() is called from within the Dispatcher and so
 			// we might have been disposed.
 
 			if (_disposed)
